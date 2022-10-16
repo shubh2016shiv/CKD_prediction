@@ -21,3 +21,4 @@ streamlit-embedcode==0.1.2
 streamlit-yellowbrick==0.0.3
 yellowbrick==1.5
 pydot==1.4.2
+openpyxl==3.0.10
