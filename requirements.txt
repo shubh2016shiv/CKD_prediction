@@ -15,7 +15,7 @@ scipy
 seaborn
 sklearn-pandas==2.2.0
 statsmodels==0.13.2
-streamlit==1.13.0
+streamlit
 streamlit-aggrid==0.3.3
 streamlit-embedcode==0.1.2
 streamlit-yellowbrick==0.0.3
