@@ -1,0 +1,5 @@
+Liver blood tests look at how well the liver is functioning and can indicate whether there is any damage or inflammation inside the liver. These tests looks at the chemicals (enzymes), proteins and other substances made by the liver to assess whether levels of any of these are abnormal. The main ones are:
+1. Alanine Aminotransferase (ALT) and Aspartate Aminotransferase (AST) : They indicate the degree of inflammation present in the liver.
+2. Alkaline Phosphatase (ALP) and y-Glutamyltransferase (GGT) : They indicate obstructive or cholestatic liver disease, where the flow of bile from the liver is blocked because of an obstruction of the bile duct.
+3. Bilirubin : It is produced when red blood cells break down, and indicate onset of jaundice.
+4. Albumin : It is important protein created by liver, which helps to maintain tissue growth and repair. Albumin levels may decrease if the liver is damaged.

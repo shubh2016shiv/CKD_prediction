@@ -1,0 +1,10 @@
+Null Hypothesis : There is no correlation (Correlation = 0)
+
+Alternate Hypothesis : There is correlation (Correlation > 0)
+
+Given significance level = 0.05, If p value > 0.05, then there is statistical evidence to failure in rejection of Null Hypothesis and otherwise, if p value < 0.05, then it presents sufficient statistical evidence to reject the null hypothesis
+Therefore, if:
+
+p value > 0.05, then, statistically no correlation
+
+p value < 0.05, then, statistically there is correlation between given parameters

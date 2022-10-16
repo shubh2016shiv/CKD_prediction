@@ -1,0 +1,1 @@
+It contains 400 samples of two different classes. Out of 25 attributes, 11 are numeric and 13 are nominal and one is class attribute. The data set contains number of missing values. Here the information of dataset uses the patient’s data like age, blood pressure, specific gravity, albumin, sugar, red blood cells etc.
