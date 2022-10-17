@@ -22,3 +22,4 @@ streamlit-yellowbrick==0.0.3
 yellowbrick==1.5
 pydot
 openpyxl==3.0.10
+cryptography~=38.0.1
