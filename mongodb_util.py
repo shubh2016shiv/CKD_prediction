@@ -19,7 +19,7 @@ class MongoDB:
     def get_collection(self):
         if self.client is not None:
             database = self.client[self.database_name]
-            collection = database.kidney_disease
+            collection = database.ckd_collection
             return collection
         else:
             print("Cannot connect with database due to failure in Internet connection")
