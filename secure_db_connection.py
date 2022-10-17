@@ -20,7 +20,7 @@ class SecureConnect:
     def get_user_name(self):
         return self._user_name
 
-    def is_connection_success(self):
+    def is_connection_valid(self)->bool:
         if (self.password == self.decrypt()) and (self.username == self._user_name):
             return True
         else:
