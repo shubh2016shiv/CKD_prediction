@@ -115,11 +115,14 @@ with charts_tab:
     st.subheader("Charts")
     viz_selection = st.selectbox(label="Select the type of Charts", options=['Distributions',
                                                                              'Missing Values',
-                                                                             'Bubble Chart',
+                                                                             'Scatter Plot',
                                                                              'Box Plots',
                                                                              'Violin Plots'
                                                                              ])
-    column_selection = st.multiselect(label="Select Columns from the Data", options=data.columns)
+    if (viz_selection == 'Scatter Plot') or (viz_selection == 'Box Plots') or (viz_selection == 'Violin Plots'):
+        column_selection = st.multiselect(label="Select Numerical Columns from the Data", options=numerical_variables)
+    else:
+        column_selection = st.multiselect(label="Select Columns from the Data", options=data.columns)
 
     visualization = Visualization(data=data)
     visualization.perform_visualization(operation=viz_selection, columns=column_selection)
