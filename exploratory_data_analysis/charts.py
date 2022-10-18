@@ -137,7 +137,7 @@ class Visualization:
                     fig = px.box(self.data, y=columns[i], points="all", notched=False, color=classification_color,
                                  color_discrete_map={"ckd": "red",
                                                      "notckd": "green"},
-                                 title="Box Plot for Data - {}".format(get_proper_column_name(columns[i])))
+                                 title="Box Plot for '{}'".format(get_proper_column_name(columns[i])))
                     j.plotly_chart(fig, use_container_width=True)
                     with j:
                         perc_inliers, perc_outliers = self.calculateOutliersInliers(columns[i])
