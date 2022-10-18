@@ -11,11 +11,11 @@ class SecureConnect:
         self._key = config['mongo']['key']
         self._user_name = config['mongo']['user_name']
         self._encrypted_password = config['mongo']['encrypted_password']
-
+    
     def decrypt(self):
-        key = Fernet(bytes(self._key,'utf-8'))
-        myPass = (key.decrypt(self._encrypted_password))
-        return str(myPass).replace("b'","").replace("'","")
+        key = Fernet(bytes(self._key, 'utf-8'))
+        myPass = (key.decrypt(bytes(self._encrypted_password,'utf-8')))
+        return str(myPass).replace("b'", "").replace("'", "")
 
     def get_user_name(self):
         return self._user_name
