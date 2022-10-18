@@ -57,9 +57,8 @@ dataset_info_df = pd.read_excel('resources/blog_text_content/dataset_information
 st.dataframe(dataset_info_df.style.applymap(helper_functions.color_type, subset=['Type']), use_container_width=True)
 
 st.header("Exploratory Data Analysis")
-dataframe_tab, descriptive_stat_tab, normality_test_tab, charts_tab, corr_tab, target_analysis = \
-    st.tabs(["Dataframe", "Descriptive Analysis", 'Normality Test Analysis', "Charts", "Correlation Analysis",
-             "Target Analysis"])
+dataframe_tab, descriptive_stat_tab, normality_test_tab, charts_tab, corr_tab = \
+    st.tabs(["Dataframe", "Descriptive Analysis", 'Normality Test Analysis', "Charts", "Correlation Analysis"])
 
 with dataframe_tab:
     st.subheader("Dataframe")
