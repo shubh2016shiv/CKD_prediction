@@ -437,7 +437,7 @@ if st.session_state["authentication_status"]:
                     bayesian_optimized_pipeline = helper_functions.load_pickle_file(
                         bayesian_optimized_pipeline_path.replace('.pkl', ''))
                     trained_pipeline = bayesian_optimized_pipeline
-                 except Exception as (ex,):
+                except Exception as (ex,):
                     st.error("An Exception has occurred while loading the pipeline. Please run the optimization pipeline from previous step for scoring metrics of your choice.")
             else:
                 st.error(
