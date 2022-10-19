@@ -53,7 +53,8 @@ class CorrelationAnalysis:
         numerical_var_options = st.multiselect("Select Numerical Variable", options=self.numerical_cols)
         categorical_var_options = st.multiselect("Select Categorical Variable", options=self.categorical_cols)
 
-        st.write(f'*{self.helper_function.write_text_to_blog('correlation_hypothesis.txt')}*')
+        #st.write(f'*{self.helper_function.write_text_to_blog('correlation_hypothesis.txt')}*')
+        st.write(self.helper_function.write_text_to_blog('correlation_hypothesis.txt'))
 
         numerical_column_list = []
         categorical_column_list = []
