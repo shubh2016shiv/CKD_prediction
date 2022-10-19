@@ -48,6 +48,8 @@ authenticator = stauth.Authenticate(credentials=app_credentials,cookie_name='ckd
 name, authentication_status, username = authenticator.login('Login', 'main')
 
 if st.session_state["authentication_status"]:
+    authenticator.logout('Logout', 'main')
+    st.write(f'Welcome *{st.session_state["name"]}*')
     # Blog UI Code
     st.title("Chronic Kidney Disease Prediction using Machine Learning")
     st.write("-" * 10)
