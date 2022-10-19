@@ -192,9 +192,9 @@ class Visualization:
             st.plotly_chart(fig, use_container_width=True)
 
         if operation == "Scatter Plot":
-            st.write('''The scatter diagram graphs pairs of numerical data, with one variable on each axis, to look for a relationship between them.
+            st.write('''**The scatter diagram graphs pairs of numerical data, with one variable on each axis, to look for a relationship between them.
              If the variables are correlated, the points will fall along a line or curve. 
-             The better the correlation, the tighter the points will hug the line.''')
+             The better the correlation, the tighter the points will hug the line.**''')
             show_trend_line = st.checkbox("Tick the checkbox to show Trend Line(s).")
             if show_trend_line:
                 trendline = "lowess"
@@ -220,14 +220,14 @@ class Visualization:
                 st.warning("Selected column should only be Numerical. Categorical columns are not allowed")
         if operation == "Box Plots":
             st.write('''
-            A box plot is a statistical representation of the distribution of a variable through its quartiles. 
+            **A box plot is a statistical representation of the distribution of a variable through its quartiles. 
             The ends of the box represent the lower and upper quartiles, while the median (second quartile) is marked by a line inside the box.
             Box plot is also used for visualizing the potential outliers.
-            When reviewing a box plot, an outlier is defined as a data point that is located outside the whiskers of the box plot.
+            When reviewing a box plot, an outlier is defined as a data point that is located outside the whiskers of the box plot.**
             ''')
             self.show_box_plot(columns)
 
         if operation == "Violin Plots":
-            st.write('''A violin plot is a statistical representation of numerical data. 
-            It is similar to a box plot, with the addition of a rotated kernel density plot on each side.''')
+            st.write('''**A violin plot is a statistical representation of numerical data. 
+            It is similar to a box plot, with the addition of a rotated kernel density (KDE) plot on each side.**''')
             self.show_violin_plot(columns)
