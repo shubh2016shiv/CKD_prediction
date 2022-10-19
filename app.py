@@ -462,8 +462,10 @@ if st.session_state["authentication_status"]:
             if exists(random_search_optimized_pipeline_path):
                 st.info("Evaluating the Random-Search Optimised Decision Tree Model..")
                 try:
-                    random_search_optimized_pipeline = helper_functions.load_pickle_file(
-                        random_search_optimized_pipeline_path.replace('.pkl', ''))
+                    with open(pickle_name + '.pkl', 'rb') as f:
+                        random_search_optimized_pipeline = pickle.load(f)
+#                     random_search_optimized_pipeline = helper_functions.load_pickle_file(
+#                         random_search_optimized_pipeline_path.replace('.pkl', ''))
                     trained_pipeline = random_search_optimized_pipeline
                 except (Exception,) as ex:
                     st.error("An Exception has occurred while loading the pipeline. Please run the optimization pipeline again from previous step for scoring metrics of your choice.")
