@@ -433,9 +433,12 @@ if st.session_state["authentication_status"]:
             bayesian_optimized_pipeline_path = 'resources/pipeline_diagram/bayesian_optimized_pipeline.pkl'
             if exists(bayesian_optimized_pipeline_path):
                 st.info("Evaluating the Bayesian Optimised Decision Tree Model..")
-                bayesian_optimized_pipeline = helper_functions.load_pickle_file(
-                    bayesian_optimized_pipeline_path.replace('.pkl', ''))
-                trained_pipeline = bayesian_optimized_pipeline
+                try:
+                    bayesian_optimized_pipeline = helper_functions.load_pickle_file(
+                        bayesian_optimized_pipeline_path.replace('.pkl', ''))
+                    trained_pipeline = bayesian_optimized_pipeline
+                 except Exception as (ex,):
+                    st.error("An Exception has occurred while loading the pipeline. Please run the optimization pipeline from previous step for scoring metrics of your choice.")
             else:
                 st.error(
                     "Bayesian Optimized Decision Tree Model is not found. Run the optimization pipeline from previous step.")
@@ -444,9 +447,12 @@ if st.session_state["authentication_status"]:
             grid_search_optimized_pipeline_path = 'resources/pipeline_diagram/grid_search_optimized_pipeline.pkl'
             if exists(grid_search_optimized_pipeline_path):
                 st.info("Evaluating the Grid-Search Optimised Decision Tree Model..")
-                grid_search_optimized_pipeline = helper_functions.load_pickle_file(
-                    grid_search_optimized_pipeline_path.replace('.pkl', ''))
-                trained_pipeline = grid_search_optimized_pipeline
+                try:
+                    grid_search_optimized_pipeline = helper_functions.load_pickle_file(
+                        grid_search_optimized_pipeline_path.replace('.pkl', ''))
+                    trained_pipeline = grid_search_optimized_pipeline
+                except Exception as (ex,):
+                    st.error("An Exception has occurred while loading the pipeline. Please run the optimization pipeline from previous step for scoring metrics of your choice.")
             else:
                 st.error(
                     "Grid-Search Optimized Decision Tree Model is not found. Run the optimization pipeline from previous step.")
@@ -455,9 +461,12 @@ if st.session_state["authentication_status"]:
             random_search_optimized_pipeline_path = 'resources/pipeline_diagram/random_search_optimized_pipeline.pkl'
             if exists(random_search_optimized_pipeline_path):
                 st.info("Evaluating the Random-Search Optimised Decision Tree Model..")
-                random_search_optimized_pipeline = helper_functions.load_pickle_file(
-                    random_search_optimized_pipeline_path.replace('.pkl', ''))
-                trained_pipeline = random_search_optimized_pipeline
+                try:
+                    random_search_optimized_pipeline = helper_functions.load_pickle_file(
+                        random_search_optimized_pipeline_path.replace('.pkl', ''))
+                    trained_pipeline = random_search_optimized_pipeline
+                except Exception as (ex,):
+                    st.error("An Exception has occurred while loading the pipeline. Please run the optimization pipeline from previous step for scoring metrics of your choice.")
             else:
                 st.error(
                     "Random-Search Optimized Decision Tree Model is not found. Run the optimization pipeline from previous step.")
