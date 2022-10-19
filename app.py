@@ -494,7 +494,7 @@ if st.session_state["authentication_status"]:
     with performing_prediction_expander:
         st.subheader("Prediction for Chronic Kidney Disease")
         st.write("-"*5)
-        st.subheader("Test Samples: ")
+        st.write("**Random Test Samples: **")
         sample_test_values_df = pd.read_csv(r'resources/sample_test_data.csv')
         gb = GridOptionsBuilder.from_dataframe(sample_test_values_df)
         gb.configure_pagination()
