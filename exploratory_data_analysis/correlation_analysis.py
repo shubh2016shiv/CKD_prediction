@@ -33,7 +33,7 @@ class CorrelationAnalysis:
         self.helper_function = HelperFunctions()
 
     def corr_between_numerical_vars(self):
-        st.write("Correlation among all Numerical Variables")
+        st.write("**Correlation among all Numerical Variables**")
         corr_option = st.selectbox("Choose the Correlation Type", options=["Pearson", "Spearman", "Kendall"])
         if corr_option == "Pearson":
             corr = self.data.drop(self.categorical_cols, axis=1).corr()
@@ -49,11 +49,11 @@ class CorrelationAnalysis:
             st.plotly_chart(fig, use_container_width=True)
 
     def corr_between_numerical_and_categorical(self):
-        st.write("Correlation Between Numerical and Categorical Variables")
+        st.write("**Correlation Between Numerical and Categorical Variables**")
         numerical_var_options = st.multiselect("Select Numerical Variable", options=self.numerical_cols)
         categorical_var_options = st.multiselect("Select Categorical Variable", options=self.categorical_cols)
 
-        st.write(self.helper_function.write_text_to_blog('correlation_hypothesis.txt'))
+        st.write(f'*{self.helper_function.write_text_to_blog('correlation_hypothesis.txt')}*')
 
         numerical_column_list = []
         categorical_column_list = []
