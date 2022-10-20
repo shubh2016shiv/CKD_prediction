@@ -368,7 +368,8 @@ if st.session_state["authentication_status"]:
             st.subheader('Results of Pipeline Optimization (Hyper-Parameter Tuning)')
             st.write("-" * 5)
             st.info(
-                "This section shows the result of Machine Learning Pipeline Optimization. Click on 'Click to optimize' to proceed with optimizing the pipeline!")
+                '''This section shows the result of Machine Learning Pipeline Optimization in real time. The result will be shown everytime when optimization is done for a specific scoring parameter Click on 'Click to optimize' to proceed with optimizing the pipeline!
+                ''')
             scoring_parameter = scoring_parameter.replace(" (default)", "")
             if optimized_pipeline:
                 if optimization_type == 'Bayesian Optimization':
