@@ -8,6 +8,10 @@ class ImportData:
         self.data = self.mongoDB_connection.read_data_from_mongodb()
 
     def get_data_from_mongoDB(self):
+        """
+        retrieve data from mongodb into pandas dataframe
+        :return: pandas dataframe
+        """
         config = ConfigParser()  # For reading column names from config files, so that column names can be added after fetching data from mongoDB
         config.read('config.ini')  # read column names from the configuration file
         if self.data is not None:
