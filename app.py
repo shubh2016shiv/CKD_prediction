@@ -75,20 +75,20 @@ if st.session_state["authentication_status"]:
     st.write("2. For accessing the MongoDB database, additional user has been created called '*assessment_user*', which is given 'read-only access'")
     img_column_1, img_column_2 = st.columns(2)
     with img_column_1:
-        st.image('resources/security_related_snapshots/MongoDB authentication(GUI).png', caption="MongoDB Authentication GUI using Read-Only User")
+        st.image('security_related_snapshots/MongoDB authentication(GUI).png', caption="MongoDB Authentication GUI using Read-Only User")
     with img_column_2:
-        st.image('resources/security_related_snapshots/mongoDB read only user.png', caption="Read-Only user on MongoDB database")
+        st.image('security_related_snapshots/mongoDB read only user.png', caption="Read-Only user on MongoDB database")
     st.write('''3. Connection is made to MongoDB using connection string specific to the 'read-only' user and 
                 password is stored in encrypted format, which is decrypted using a key, everytime the connection is made for authentication''')
-    st.image('resources/security_related_snapshots/key_password_connection-string.png',caption="Encrypted password, key (for decryption) and connection string")
+    st.image('security_related_snapshots/key_password_connection-string.png',caption="Encrypted password, key (for decryption) and connection string")
     st.write('''
             4. Once database access is authenticated, application access requires another authentication and the credentials of application access are stored on same database but in another collection called *user_auth* 
             ''')
-    st.image('resources/security_related_snapshots/application authentication(GUI).png',caption='Application Authentication')
+    st.image('security_related_snapshots/application authentication(GUI).png',caption='Application Authentication')
     st.write('''
             5. The password of application user is hashed and authentication is done using the hashed password for the specific user.   
             ''')
-    st.image('resources/security_related_snapshots/user hashed password.png',caption='Hashed Application password stored as collection - "user_auth" on MongoDB Database')
+    st.image('security_related_snapshots/user hashed password.png',caption='Hashed Application password stored as collection - "user_auth" on MongoDB Database')
 
 
     st.write("-" * 10)
