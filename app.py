@@ -365,9 +365,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
 
             helper_functions.save_dataframe_to_csv(X_test, "Test_data_after_feature_selection.csv")
 
-    ####################################        
-    # Create Machine Learning Pipeline #
-    ####################################
+    ########################################################        
+    # Create Machine Learning Pipeline using Decision Tree #
+    ########################################################
     with machine_learning_pipeline_expander:
         code_column, result_column = st.columns(2)
 
