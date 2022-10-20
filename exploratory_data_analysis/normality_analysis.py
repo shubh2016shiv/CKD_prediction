@@ -8,7 +8,7 @@ import numpy as np
 class NomalityAnalysis:
     def __init__(self, data: pd.core.frame.DataFrame):
         self.data = data.copy(deep=True)
-
+        # Remove the inconsistencies in Data
         self.data['pcv'] = self.data['pcv'].replace(['\t?'], np.nan).replace(['\t43'], '43')
         self.data['pcv'] = self.data['pcv'].apply(lambda x: float(x))
 
@@ -22,10 +22,15 @@ class NomalityAnalysis:
         self.data['dm'] = self.data['dm'].replace(['\tno'], 'no').replace(['\tyes'], 'yes').replace([' yes'], 'yes')
 
         self.data['cad'] = self.data['cad'].replace(['\tno'], 'no')
-
+        
+        # Fill the missing value to avoid any error 
         self.data.fillna(self.data.mean(), inplace=True)
 
     def plot_qq_chart(self, column):
+        """
+        Create QQ chart for visually testing the normality of a given column
+        :return: None
+        """
         qqplot_data = qqplot(self.data[column], line='s').gca().lines
         fig = go.Figure()
 
@@ -67,8 +72,12 @@ class NomalityAnalysis:
         st.plotly_chart(fig, use_container_width=True)
 
     def perform_shapiro_test(self, column):
+        """
+        Perform Shapiro's statistical test for testing normality of a column 
+        :return: None
+        """
         stat_shapiro, p_shapiro = shapiro(self.data[column])
-        # interpret
+        # interpret the statistical result
         alpha = 0.05
         if p_shapiro > alpha:
             msg = 'Sample looks Gaussian (fail to reject H0)'
@@ -78,9 +87,13 @@ class NomalityAnalysis:
         return stat_shapiro, p_shapiro, msg
 
     def perform_D_Agostino_K_squared_test(self, column):
+        """
+        Perform 'D Agostino K squared' statistical test for testing normality of a column
+        :return: None
+        """
         stat_normal, p_normal = normaltest(self.data[column])
 
-        # interpret
+        # interpret the statistical result
         alpha = 0.05
         if p_normal > alpha:
             msg = 'Sample looks Gaussian (fail to reject H0)'
@@ -90,9 +103,13 @@ class NomalityAnalysis:
         return stat_normal, p_normal, msg
 
     def perform_KS_test(self, column):
+        """
+        Perform KS statistical test for testing normality of a column 
+        :return: None
+        """
         stat_ks, p_ks = kstest(self.data[column], 'norm')
 
-        # interpret
+        # interpret the statistical result
         alpha = 0.05
         if p_ks > alpha:
             msg = 'Sample looks Gaussian (fail to reject H0)'
@@ -102,6 +119,10 @@ class NomalityAnalysis:
         return stat_ks, p_ks, msg
 
     def perform_statistical_normality_test(self,column):
+        """
+        Perform the Normality Testing using Statistical testing
+        :return: None
+        """
         st.subheader("Statistical Normality Test")
         stat_shapiro, p_shapiro, msg_shapiro = self.perform_shapiro_test(column)
         stat_ks, p_ks, msg_ks = self.perform_KS_test(column)
