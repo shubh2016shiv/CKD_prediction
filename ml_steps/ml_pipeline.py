@@ -17,6 +17,10 @@ def load_pickle_file(pickle_name):
 
 
 class FeatureSelector(BaseEstimator, TransformerMixin):
+    """
+    Custom Feature selector to be used in Pipeline later
+    :return: NA
+    """
     def __init__(self, columns):
         self.columns = columns
 
@@ -28,6 +32,10 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
 
 
 class NullValueImputater(BaseEstimator, TransformerMixin):
+    """
+    Custom Null Value Imputater to be used in Pipeline later
+    :return: NA
+    """
     def __init__(self, numerical_imputing_strategy, categorical_imputing_strategy):
         self.numerical_imputing_strategy = numerical_imputing_strategy
         self.categorical_imputing_strategy = categorical_imputing_strategy
@@ -57,6 +65,10 @@ class NullValueImputater(BaseEstimator, TransformerMixin):
 
 
 class CustomStandardScaler(BaseEstimator, TransformerMixin):
+    """
+    Custom Scaler to be used in Pipeline later
+    :return: NA
+    """
     def __init__(self):
         self.numerical_variables = None
         self.categorical_variables = None
@@ -94,6 +106,10 @@ def handle_categorical_variables(X):
 
 
 class CustomCategoryEncoder(BaseEstimator, TransformerMixin):
+    """
+    Custom category encoder to be used in Pipeline later
+    :return: NA
+    """
     def __init__(self):
         self.numerical_variables = None
         self.categorical_variables = None
@@ -114,6 +130,11 @@ class MachineLearningPipeline:
         self.machine_learning_model = machine_learning_model
 
     def create_custom_machine_learning_pipeline(self):
+        """
+        Function to create Custom Machine Learning Pipeline
+        :return: pipeline
+        """
+        # Feature Engineering Pipeline
         feature_engineering_pipeline = Pipeline([
             ('imputer',
              NullValueImputater(numerical_imputing_strategy='mean', categorical_imputing_strategy='most_frequent')),
@@ -123,6 +144,7 @@ class MachineLearningPipeline:
              CustomCategoryEncoder())
         ])
 
+        # Feature selection pipeline
         selected_features = load_pickle_file('resources/processed_data/selected_features.pkl')
 
         feature_selection_pipeline = Pipeline([
@@ -130,6 +152,7 @@ class MachineLearningPipeline:
              FeatureSelector(columns=selected_features))
         ])
 
+        # Combining all the pipeline element along with machine learning model
         pipeline = Pipeline([
             ('feature_engineering', feature_engineering_pipeline),
             ('feature_selection', feature_selection_pipeline),
