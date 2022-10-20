@@ -220,6 +220,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
     evaluation_expander = st.expander(label="Step: Evaluate different Models")
     performing_prediction_expander = st.expander(label="Step: Perform Prediction on Unknown Data", expanded=True)
 
+    ##################
+    # Data Splitting #
+    ##################
     with training_test_split_expander:
         code_column, result_column = st.columns(2)
         with code_column:
@@ -246,6 +249,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
             st.write("Test Target Variable:")
             st.dataframe(y_test, height=200, use_container_width=True)
 
+    #######################
+    # Feature Engineering #
+    #######################
     with feature_engineering_expander:
         code_column, result_column = st.columns(2)
         with code_column:
@@ -299,6 +305,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
             st.write("Test Target Variable:")
             st.dataframe(y_test, use_container_width=True, height=300)
 
+    #####################        
+    # Feature Selection #
+    #####################
     with feature_selection_expander:
         code_column, result_column = st.columns(2)
 
@@ -356,6 +365,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
 
             helper_functions.save_dataframe_to_csv(X_test, "Test_data_after_feature_selection.csv")
 
+    ####################################        
+    # Create Machine Learning Pipeline #
+    ####################################
     with machine_learning_pipeline_expander:
         code_column, result_column = st.columns(2)
 
@@ -365,13 +377,16 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
             st.subheader("Custom Machine Learning Pipeline")
 
             decision_tree_classifier = DecisionTreeClassifier(random_state=100, class_weight='balanced')
-            ml_pipeline = MachineLearningPipeline(machine_learning_model=decision_tree_classifier)
+            ml_pipeline = MachineLearningPipeline(machine_learning_model=decision_tree_classifier) # Create Machine Learning pipeline using Decision Tree
             _ = ml_pipeline.create_custom_machine_learning_pipeline()
             p = open("resources/pipeline_diagram/pipeline.html")
             components.html(p.read(), width=1000,
                             height=500,
                             scrolling=True)
 
+    ###############################################################        
+    # Run Machine Learning pipeline directly from data in MongoDB #
+    ###############################################################
     with pipeline_run_and_model_training_expander:
         code_column, result_column = st.columns(2)
 
@@ -385,13 +400,17 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
             # Get the custom machine learning pipeline
             pipeline = ml_pipeline.create_custom_machine_learning_pipeline()
 
+            # Training pipeline has two inputs - 1. Data from MongoDB and 2. pipeline
             train_pipeline_step = TrainMLPipeline(data=raw_data_from_mongoDB,
                                                   machine_learning_pipeline=pipeline)
 
+            # Initiate the training without optimizing it
             train_pipeline_step.perform_train(optimize=False)
             decision_tree_diagram_path = 'resources/decision_trees/un-optimized decision tree model.png'
             st.image(image=decision_tree_diagram_path,
                      caption='Un-optimized Decision Tree after training')
+            
+            # Save the un-optimized decision tree model as image
             with open(decision_tree_diagram_path, "rb") as file:
                 btn = st.download_button(
                     label="Download Decision Tree",
@@ -399,6 +418,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                     file_name="Decision Tree without optimization.png",
                     mime="image/png")
 
+    #############################################           
+    # Perform Model Optimization using Pipeline #
+    #############################################
     with pipeline_optimization_expander:
         optimization_column, result_column = st.columns(2)
         optimized_pipeline = None
@@ -414,6 +436,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                                                  'roc_auc'
                                              ])
 
+            # Select one of three optimization techniques - 1. Bayesian Optimization 2. Grid Search optimization 3. Random Search Optimization
             optimization_type = st.radio(label="Select the type of Optimization", options=['Bayesian Optimization',
                                                                                            'Grid Search Optimization',
                                                                                            'Random Search Optimization'])
@@ -422,6 +445,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                 with st.spinner(
                         "Relax ☕! {} is optimizing the pipeline with '{}' as scoring parameter...".format(optimization_type,
                                                                                                           scoring_parameter)):
+                    # Perform the model training with optimization
                     optimized_pipeline = train_pipeline_step.perform_train(optimize=True,
                                                                            optimization_type=optimization_type,
                                                                            scoring_parameter=scoring_parameter)
@@ -476,6 +500,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                         st.subheader("Random Search Optimized Decision Tree")
                         st.image(random_search_optimized_decision_tree_image_path)
 
+    ################################                    
+    # Perform the Model Evaluation #
+    ################################
     with evaluation_expander:
         evaluation_model_selection = st.radio("Select the Decision Tree model to be evaluated.",
                                               options=['Un-Optimized Model',
@@ -566,6 +593,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                 except (Exception,) as ex:
                     st.error("An Exception has occurred while evaluating the pipeline. Please run the same optimization pipeline once again from previous step **(Run Optimization)**, so that new optimized model can be created from pipeline")
 
+    ##########################                
+    # Perform the prediction #
+    ##########################
     with performing_prediction_expander:
         st.subheader("Prediction for Chronic Kidney Disease")
         st.write("-"*5)
@@ -685,7 +715,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                         st.success(prediction)
                     elif prediction == 'Chronic Kidney Disease Detected':
                         st.error(prediction)
-elif st.session_state["authentication_status"] == False:
+elif st.session_state["authentication_status"] == False: # In case the application authentication fails
     st.error('Username/password is incorrect')
-elif st.session_state["authentication_status"] == None:
+elif st.session_state["authentication_status"] == None: # In case, either password or username is not entered 
     st.warning('Please enter your username and password')
