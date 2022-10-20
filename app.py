@@ -35,6 +35,7 @@ from ml_steps.predict import Predict
 # Miscellaneous Imports
 from sklearn.tree import DecisionTreeClassifier
 from os.path import exists
+import pickle
 
 st.set_page_config(layout="wide")
 helper_functions = HelperFunctions()
