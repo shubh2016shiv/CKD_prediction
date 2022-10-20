@@ -14,12 +14,20 @@ class FeatureEngineering:
         self.categorical_variables = None
 
     def get_numerical_and_categorical_columns(self):
+        """
+        Get Numerical and Categorical Column
+        :return: Tuple of list of Numerical and Categorical Columns
+        """
         numerical_variables = self.X.select_dtypes(include='number').columns
         categorical_variables = [column for column in self.X.columns if column not in numerical_variables]
 
         return list(numerical_variables), list(categorical_variables)
 
     def impute_missing_values(self, X):
+        """
+        Impute the missing values
+        :return: Dataframe without missing values
+        """
         numerical_imputer = SimpleImputer(strategy="mean")
         self.numerical_variables, self.categorical_variables = self.get_numerical_and_categorical_columns()
         # Indicate which numerical variables to impute:
@@ -57,6 +65,10 @@ class FeatureEngineering:
         return X
 
     def normalize_data(self, X):
+        """
+        Normalize the data
+        :return: pandas.core.frame.DataFrame
+        """
         scaler = RobustScaler()
         # Indicate which variables to normalize:
         self.scaler_column_transformer = ColumnTransformer([("scaler", scaler, self.numerical_variables)],
@@ -72,6 +84,10 @@ class FeatureEngineering:
 
     @staticmethod
     def handle_categorical_variables(X):
+        """
+        Static function for handling the cateegorical columns
+        :return: pandas.core.frame.DataFrame
+        """
         X['rbc'] = X['rbc'].map({'normal':0,'abnormal':1})
         X['pc'] = X['pc'].map({'normal':0,'abnormal':1})
         X['pcc'] = X['pcc'].map({'notpresent':0,'present':1})
@@ -86,6 +102,10 @@ class FeatureEngineering:
         return X
 
     def perform_feature_engineering(self, X):
+        """
+        Perform the Feature Engineering
+        :return: pandas.core.frame.DataFrame
+        """
         X = self.impute_missing_values(X)
         X = self.normalize_data(X)
         X = self.handle_categorical_variables(X)
