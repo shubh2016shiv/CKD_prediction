@@ -132,7 +132,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
         data['pcv'] = data['pcv'].replace(['\t?'], np.nan).replace(['\t43'], '43')
         data['pcv'] = data['pcv'].apply(lambda x: float(x))
 
-        data['wc'] = data['wc'].replace(['\t?'], np.nan).replace(['\t6200'], '6200').replace(['\t8400'], '6200')
+        data['wc'] = data['wc'].replace(['\t?'], np.nan).replace(['\t6200'], '6200').replace(['\t8400'], '8400')
         data['wc'] = data['wc'].apply(lambda x: float(x))
 
         data['rc'] = data['rc'].replace(['\t?'], np.nan)
