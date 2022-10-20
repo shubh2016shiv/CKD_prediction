@@ -10,6 +10,10 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
 def get_proper_column_name(col_name):
+    """
+        Returns the proper name of the abbreviated column name in data
+    :return: String
+    """
     if col_name == 'bp':
         return 'Blood Pressure'
     elif col_name == 'sg':
@@ -59,7 +63,6 @@ def get_proper_column_name(col_name):
     else:
         return 'classification (CKD or No-CKD)'
 
-
 class Visualization:
     def __init__(self, data: pd.core.frame.DataFrame):
         self.data = data.copy(deep=True)
@@ -78,10 +81,15 @@ class Visualization:
 
         self.data['cad'] = self.data['cad'].replace(['\tno'], 'no')
 
+        # get the numerical and categorical column from Descriptive Analysis Class
         descriptive_stat_class = DescriptiveStatistics(self.data)
         self.numerical_cols, self.categorical_cols = descriptive_stat_class.get_numerical_and_categorical_vars()
 
     def show_histogram(self, columns):
+        """
+        Create the Histograms for specific list of columns
+        :return: None
+        """
         def plot_histogram_as_subplots(__columns, color=None):
             i = 0
             while i < len(__columns):
@@ -108,6 +116,10 @@ class Visualization:
             plot_histogram_as_subplots(columns)
 
     def calculateOutliersInliers(self, numerical_col):
+        """
+        Calculate the Percentage of Outlier and Inliers for given numerical columns
+        :return: pandas.core.frame.DataFrame
+        """
         q1 = self.data[numerical_col].quantile(0.25)
         q3 = self.data[numerical_col].quantile(0.75)
         IQR = q3 - q1
@@ -118,6 +130,10 @@ class Visualization:
         return (round(len(outliers) / len(self.data) * 100, 3), round(len(inliers) / len(self.data) * 100, 3))
 
     def show_box_plot(self, columns):
+        """
+        Create Box Plot for given list of Columns
+        :return: None
+        """
         show_categories = st.checkbox(
             "Tick the checkbox to show Box plots separately for each category of CKD and non-CKD.")
         if show_categories:
@@ -149,6 +165,10 @@ class Visualization:
                 self.categorical_cols))
 
     def show_violin_plot(self, columns):
+        """
+        Create Violin Plot for given list of columns 
+        :return: None
+        """
         if set(columns).issubset(set(self.numerical_cols)):
             i = 0
             while i < len(columns):
@@ -168,6 +188,10 @@ class Visualization:
                     self.categorical_cols))
 
     def calculate_null_values_perc(self, columns):
+        """
+        Calculate the Percentage Null Values for given list of columns    
+        :return: pandas.core.frame.DataFrame
+        """
         null_values_df = pd.DataFrame(self.data[columns].isna().sum()).reset_index()
         null_values_df.columns = ['Column', 'Number of Null Values']
         null_values_df['Null Values Percent'] = (null_values_df[
@@ -176,6 +200,10 @@ class Visualization:
         return null_values_df
 
     def perform_visualization(self, operation, columns):
+        """
+        Perform the visualization for a given operation (like ploting distribution, missing values, scatter plot etc) and list of columns
+        :return: None
+        """
         if operation == 'Distributions':
             self.show_histogram(columns)
         if operation == "Missing Values":
