@@ -71,7 +71,7 @@ class Visualization:
         self.data['pcv'] = self.data['pcv'].apply(lambda x: float(x))
 
         self.data['wc'] = self.data['wc'].replace(['\t?'], np.nan).replace(['\t6200'], '6200').replace(['\t8400'],
-                                                                                                       '6200')
+                                                                                                       '8400')
         self.data['wc'] = self.data['wc'].apply(lambda x: float(x))
 
         self.data['rc'] = self.data['rc'].replace(['\t?'], np.nan)
