@@ -42,21 +42,30 @@ helper_functions = HelperFunctions()
 # Start the MongoDB connection
 helper_functions.initiate_mongodb_connection()
 
+# Retrieve the application user authentication credentials stored on MongoDB 
 app_credentials = helper_functions.mongodb.client['chronic_kidney_disease_prediction'].user_auth.find({}).next()
 
+# Perform the application authentication
 authenticator = stauth.Authenticate(credentials=app_credentials,cookie_name='ckd_cookie',key='CKD',cookie_expiry_days=30)
 name, authentication_status, username = authenticator.login('Login', 'main')
 
-if st.session_state["authentication_status"]:
+if st.session_state["authentication_status"]: # If the app authentication is successful 
     authenticator.logout('Logout', 'main')
     st.write(f'Welcome *{st.session_state["name"]}*')
     # Blog UI Code
     st.title("Chronic Kidney Disease Prediction using Machine Learning")
     st.write("-" * 10)
+    
+    ########################
+    # Introduction Section #
+    ########################
     st.header("Introduction")
     intro_text = helper_functions.write_text_to_blog(file_name="introduction.txt")
     st.write(intro_text)
 
+    ###################
+    # Dataset Section #
+    ###################
     st.header("Dataset")
     dataset_info_text = helper_functions.write_text_to_blog(file_name='dataset_info.txt')
     st.write(dataset_info_text)
@@ -66,6 +75,10 @@ if st.session_state["authentication_status"]:
     st.dataframe(dataset_info_df.style.applymap(helper_functions.color_type, subset=['Type']), use_container_width=True)
     
     st.write("-" * 10)
+    
+    ###################
+    # MongoDB Section #
+    ###################
     st.header("MongoDB Database and Data Security")
     st.write("**Below video shows the use of MongoDB for storing the 'Chronic Kidney Disease' dataset as collection inside the database**")
     with st.expander("Expand to see the video"):
@@ -93,6 +106,9 @@ if st.session_state["authentication_status"]:
 
     st.write("-" * 10)
 
+    #####################################
+    # Exploratory Data Analysis Section #
+    #####################################
     st.header("Exploratory Data Analysis")
     dataframe_tab, descriptive_stat_tab, normality_test_tab, charts_tab, corr_tab = \
         st.tabs(["Dataframe", "Descriptive Analysis", 'Normality Test Analysis', "Charts", "Correlation Analysis"])
@@ -101,11 +117,16 @@ if st.session_state["authentication_status"]:
         st.subheader("Dataframe")
         st.dataframe(pd.read_csv('kidney_disease.csv'), use_container_width=True)
 
+    ##################################
+    # Start the descriptive analysis #
+    ##################################
     with descriptive_stat_tab:
         st.subheader("Descriptive Analysis")
+        
+        # Read the whole data from MongoDB and get it in dataframe format
         data = helper_functions.get_data_from_mongodb()
-        # Instantiate descriptive statistic class
-
+        
+        # Remove any inconsistencies in dataframe
         data['classification'] = data['classification'].apply(lambda x: x.replace("\t", ""))
 
         data['pcv'] = data['pcv'].replace(['\t?'], np.nan).replace(['\t43'], '43')
@@ -121,6 +142,7 @@ if st.session_state["authentication_status"]:
 
         data['cad'] = data['cad'].replace(['\tno'], 'no')
 
+        # Instantiate the Descriptive Statistics Class that will help in performing the descriptive analysis on data
         descriptive_statistics = DescriptiveStatistics(data=data)
 
         numerical_variables, _ = descriptive_statistics.get_numerical_and_categorical_vars()
@@ -138,6 +160,9 @@ if st.session_state["authentication_status"]:
                                                                     columns=selected_numerical_vars)
                 st.dataframe(descriptive_statistics.descriptive_stats_df, use_container_width=True)
 
+    ############################
+    # Start the normality test #
+    ############################
     with normality_test_tab:
         numerical_variables, _ = descriptive_statistics.get_numerical_and_categorical_vars()
         column_selection = st.selectbox(label="Select Columns from the Data for analysing Normality of their distribution",
@@ -146,7 +171,10 @@ if st.session_state["authentication_status"]:
 
         normality_test.perform_statistical_normality_test(column=column_selection)
         normality_test.plot_qq_chart(column=column_selection)
-
+        
+    ###############################
+    # Perform Data Visualizations #
+    ###############################
     with charts_tab:
         st.subheader("Charts")
         viz_selection = st.selectbox(label="Select the type of Charts", options=['Distributions',
@@ -163,14 +191,21 @@ if st.session_state["authentication_status"]:
         visualization = Visualization(data=data)
         visualization.perform_visualization(operation=viz_selection, columns=column_selection)
 
+    ####################################
+    # Perform the correlation Analysis #
+    ####################################
     with corr_tab:
         st.subheader("Correlation Analysis")
         corr_analysis = CorrelationAnalysis(data=data, target_var='Dataset')
-        corr_analysis.corr_between_numerical_vars()
-        corr_analysis.corr_between_numerical_and_categorical()
+        corr_analysis.corr_between_numerical_vars() # Correlation analysis amaong numerical variables 
+        corr_analysis.corr_between_numerical_and_categorical() # Correlation analysis between numerical and categorical variables
 
 
     st.write("-" * 5)
+    
+    #######################################
+    # Machine Learning Life Cycle Section #
+    #######################################
     st.header("Machine Learning Life Cycle Steps")
     python_package_imports_expander = st.expander(label="Step: Import Python Packages")
     training_test_split_expander = st.expander(label="Step: Split the Data into training and test set")
