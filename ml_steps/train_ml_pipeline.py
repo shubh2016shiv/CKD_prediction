@@ -21,6 +21,10 @@ class TrainMLPipeline:
         self.y_test = None
 
     def save_decision_tree_diagram(self, decision_tree, feature_names, class_names, out_file_name):
+        """
+        Save the decision tree as image file (.png)
+        :return: None
+        """
         export_graphviz(decision_tree,
                         feature_names=feature_names,
                         class_names=class_names,
@@ -31,11 +35,20 @@ class TrainMLPipeline:
         graph.write_png('resources/decision_trees/' + out_file_name + '.png')
 
     def save_pipeline(self, pipeline, pipeline_name):
+        """
+        Save the pipeline as serialized object
+        :return: None
+        """
         pickle_out = open('resources/pipeline_diagram/' + pipeline_name + ".pkl", "wb")
         pickle.dump(pipeline, pickle_out)
         pickle_out.close()
 
     def bayesian_optimization(self, scoring):
+        """
+        Perform the Bayesian optimization on Decision Tree model pipeline for a given scoring parameter
+        :return: Optimized Model
+        """
+        # Defining the Hyper-Parameter Space for optimization
         params = {
             'estimator__max_depth': Integer(2, 20, prior="log-uniform"),
             'estimator__min_samples_leaf': Integer(5, 500, prior="log-uniform"),
@@ -45,9 +58,10 @@ class TrainMLPipeline:
             "estimator__max_leaf_nodes": Integer(10, 500, prior="log-uniform")
         }
 
-        # Cross-Validation using Stratified K Fold
+        # Cross-Validation using Stratified K Fold (3-fold)
         cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=100)
-
+        
+        # Start the Bayesian Optimization on Decision Tree Model Pipeline
         opt = BayesSearchCV(
             self.machine_learning_pipeline,
             params,
@@ -57,12 +71,18 @@ class TrainMLPipeline:
             cv=cv
         )
 
+        # saving the pipeline in html format
         with open(r'resources/pipeline_diagram/bayesian_optimized_pipeline.html', 'w', encoding='utf-8') as f:
             f.write(estimator_html_repr(opt))
 
         return opt
 
     def grid_search_optimization(self, scoring):
+        """
+        Perform the Grid Search optimization on Decision Tree model pipeline for a given scoring parameter
+        :return: Optimized Model
+        """
+        # Defining the Hyper-Parameter Space for optimization
         params = {
             'estimator__max_depth': [2, 3, 5, 10, 20],
             'estimator__min_samples_leaf': [5, 10, 20, 50, 100, 200, 300, 500],
@@ -72,20 +92,27 @@ class TrainMLPipeline:
             "estimator__max_leaf_nodes": [10, 50, 100, 200, 300, 500]
         }
 
-        # Cross-Validation using Stratified K Fold
+        # Cross-Validation using Stratified K Fold (3-fold)
         cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=100)
 
+        # Start the Grid Search Optimization on Decision Tree Model Pipeline
         grid_search = GridSearchCV(estimator=self.machine_learning_pipeline,
                                    param_grid=params, cv=cv,
                                    scoring=scoring,
                                    verbose=1, n_jobs=-1)
 
+        # saving the pipeline in html format
         with open(r'resources/pipeline_diagram/grid_search_pipeline.html', 'w', encoding='utf-8') as f:
             f.write(estimator_html_repr(grid_search))
 
         return grid_search
 
     def random_search_optimization(self, scoring):
+        """
+        Perform the Random Search optimization on Decision Tree model pipeline for a given scoring parameter
+        :return: Optimized Model
+        """
+        # Defining the Hyper-Parameter Space for optimization
         params = {
             'estimator__max_depth': [2, 3, 5, 10, 20],
             'estimator__min_samples_leaf': [5, 10, 20, 50, 100, 200, 300, 500],
@@ -95,20 +122,26 @@ class TrainMLPipeline:
             "estimator__max_leaf_nodes": [10, 50, 100, 200, 300, 500]
         }
 
-        # Cross-Validation using Stratified K Fold
+        # Cross-Validation using Stratified K Fold (3-fold)
         cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=100)
 
+        # Start the Random Search Optimization on Decision Tree Model Pipeline
         random_search_search = RandomizedSearchCV(estimator=self.machine_learning_pipeline,
                                                   param_distributions=params, cv=cv,
                                                   scoring=scoring,
                                                   verbose=1, n_jobs=-1, random_state=100)
 
+        # saving the pipeline in html format
         with open(r'resources/pipeline_diagram/random_search_optimized_pipeline.html', 'w', encoding='utf-8') as f:
             f.write(estimator_html_repr(random_search_search))
 
         return random_search_search
 
     def perform_train(self, optimize: bool = False, optimization_type='Bayesian Optimization', scoring_parameter='f1'):
+        """
+        Train the Decision Tree Model Pipeline
+        :return: Optimizer
+        """
         X = self.data[[column for column in self.data.columns if column != 'classification']]
         y = self.data['classification']
         y = y.map({'ckd': 1, 'notckd': 0})
