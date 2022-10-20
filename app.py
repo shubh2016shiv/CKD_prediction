@@ -501,7 +501,7 @@ if st.session_state["authentication_status"]:
                     pr_curve_visualizer = evaluate_step.get_Precision_Recall_curve()
                     st_yellowbrick(pr_curve_visualizer)
                 except (Exception,) as ex:
-                    st.error("An Exception has occurred while evaluating the pipeline. Please run the optimization pipeline once again from previous step.")
+                    st.error("An Exception has occurred while evaluating the pipeline. Please run the same optimization pipeline once again from previous step, so that new pipeline can be created.")
 
     with performing_prediction_expander:
         st.subheader("Prediction for Chronic Kidney Disease")
