@@ -10,6 +10,10 @@ class Predict:
         self._classes = ['Chronic Kidney Disease NOT Detected','Chronic Kidney Disease Detected']
 
     def show_prediction(self):
+        """
+        Perform the prediction from the given pipeline
+        :return: prediction results
+        """
         y_pred = self.pipeline.predict(self.new_data)
 
         prediction = self._classes[y_pred[0]]
