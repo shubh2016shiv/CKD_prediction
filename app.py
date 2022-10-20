@@ -84,7 +84,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
     with st.expander("Expand to see the video"):
         st.video("https://youtu.be/FALXfWdllfw")
     st.write("**Following steps are taken for enhancing the security for accessing this project application** :")
-    with st.expander("Expand to see the steps taken for securing MongoDB database and the application):
+    with st.expander("Expand to see the steps taken for securing MongoDB database and the application"):
         st.write("1. There are two separate authentications - *MongoDB Database Authentication* and *Application Authentication* ")
         st.write("2. For accessing the MongoDB database, additional user has been created called '*assessment_user*', which is given 'read-only access'")
         img_column_1, img_column_2 = st.columns(2)
