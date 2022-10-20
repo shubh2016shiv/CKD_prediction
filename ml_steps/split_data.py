@@ -16,6 +16,10 @@ class SplitData:
         self.random_state = random_state
 
     def perform_split(self):
+        """
+        Perform the data split into 80% training and 20% test dataset in stratified way
+        :return: train data, train labels, test data, test labels
+        """
         if self.stratify:
             X_train, X_test, y_train, y_test \
                 = train_test_split(self.X, self.y, train_size=self.train_size, random_state=self.random_state,stratify=self.y,shuffle=True)
