@@ -483,22 +483,24 @@ if st.session_state["authentication_status"]:
                                          test_data=train_pipeline_step.X_test,
                                          train_label=train_pipeline_step.y_train,
                                          test_label=train_pipeline_step.y_test)
+                try:
+                    st.subheader("Confusion Matrix")
+                    confusion_matrix_visualizer = evaluate_step.get_confusion_matrix()
+                    st_yellowbrick(confusion_matrix_visualizer)
 
-                st.subheader("Confusion Matrix")
-                confusion_matrix_visualizer = evaluate_step.get_confusion_matrix()
-                st_yellowbrick(confusion_matrix_visualizer)
+                    st.subheader("Classification Report")
+                    classification_report_visualizer = evaluate_step.get_classification_report()
+                    st_yellowbrick(classification_report_visualizer)
 
-                st.subheader("Classification Report")
-                classification_report_visualizer = evaluate_step.get_classification_report()
-                st_yellowbrick(classification_report_visualizer)
+                    st.subheader("Receiver Operating Characteristic/Area Under the Curve")
+                    roc_auc_curve_visualizer = evaluate_step.get_ROCAUC_curve()
+                    st_yellowbrick(roc_auc_curve_visualizer)
 
-                st.subheader("Receiver Operating Characteristic/Area Under the Curve")
-                roc_auc_curve_visualizer = evaluate_step.get_ROCAUC_curve()
-                st_yellowbrick(roc_auc_curve_visualizer)
-
-                st.subheader("Precision-Recall Curve")
-                pr_curve_visualizer = evaluate_step.get_Precision_Recall_curve()
-                st_yellowbrick(pr_curve_visualizer)
+                    st.subheader("Precision-Recall Curve")
+                    pr_curve_visualizer = evaluate_step.get_Precision_Recall_curve()
+                    st_yellowbrick(pr_curve_visualizer)
+                except (Exception,) as ex:
+                    st.error("An Exception has occurred while evaluating the pipeline. Please run the optimization pipeline once again from previous step.")
 
     with performing_prediction_expander:
         st.subheader("Prediction for Chronic Kidney Disease")
