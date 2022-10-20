@@ -8,12 +8,12 @@ import streamlit as st
 class OutliersAnalysis:
     def __init__(self,data):
         self.data = data
-
+        # Remove inconsistencies in data
         self.data['pcv'] = self.data['pcv'].replace(['\t?'], np.nan).replace(['\t43'], '43')
         self.data['pcv'] = self.data['pcv'].apply(lambda x: float(x))
 
         self.data['wc'] = self.data['wc'].replace(['\t?'], np.nan).replace(['\t6200'], '6200').replace(['\t8400'],
-                                                                                                       '6200')
+                                                                                                       '8400')
         self.data['wc'] = self.data['wc'].apply(lambda x: float(x))
 
         self.data['rc'] = self.data['rc'].replace(['\t?'], np.nan)
@@ -27,10 +27,18 @@ class OutliersAnalysis:
         self.numerical_cols, self.categorical_cols = descriptive_stat_class.get_numerical_and_categorical_vars()
 
     def plotBoxPlot(self,numerical_col):
+        """
+        Create Box plot for visualizing outliers
+        :return: Plotly Figure
+        """
         boxplot_fig = px.box(self.data, y=numerical_col)
         return boxplot_fig
 
     def calculateOutliersInliers(self,numerical_col):
+        """
+        Calculate the percentage of outliers and inliers
+        :return: pandas.core.frame.DataFrame
+        """
         q1 = self.data[numerical_col].quantile(0.25)
         q3 = self.data[numerical_col].quantile(0.75)
         IQR = q3 - q1
@@ -39,6 +47,10 @@ class OutliersAnalysis:
         return (round(len(outliers)/len(self.data)*100,3),round(len(inliers)/len(self.data)*100,3))
 
     def perform_outlier_analysis(self,columns):
+        """
+        Perform the outlier analysis for given columns
+        :return: None
+        """
         if set(columns).issubset(set(self.numerical_cols)):
             i = 0
             while i < len(columns):
