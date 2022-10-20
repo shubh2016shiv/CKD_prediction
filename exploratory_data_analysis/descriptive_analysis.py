@@ -7,7 +7,8 @@ class DescriptiveStatistics:
     def __init__(self, data: pd.core.frame.DataFrame):
         self.data = data.copy(deep=True)
         self.data['classification'] = self.data['classification'].apply(lambda x: x.replace("\t", ""))
-
+        
+        # Remove the Inconsistencies in data
         self.data['pcv'] = self.data['pcv'].replace(['\t?'], np.nan).replace(['\t43'], '43')
         self.data['pcv'] = self.data['pcv'].apply(lambda x: float(x))
 
@@ -24,6 +25,10 @@ class DescriptiveStatistics:
         self.descriptive_stats_df = None
 
     def get_numerical_and_categorical_vars(self):
+        """
+        Get the Numerical and Categorical Vraibles from the dataframe
+        :return: Tuple of Numerical and Categorical Variables as list
+        """
         numerical_variables = self.data.select_dtypes(include='number').columns
         categorical_variables = [column for column in self.data.columns if column not in numerical_variables]
         with open('resources/processed_data/numerical_columns.pkl', 'wb') as f:
@@ -35,6 +40,10 @@ class DescriptiveStatistics:
         return numerical_variables, categorical_variables
 
     def perform_descriptive_analysis(self, operations: list, columns: list):
+        """
+        Perform Descriptive Analysis for a given operation (like calculating mean, median, mode or 95% confidence interval) on given list of columns
+        :return:
+        """
         if self.descriptive_stats_df is None:
             self.descriptive_stats_df = pd.DataFrame(columns=columns)
 
