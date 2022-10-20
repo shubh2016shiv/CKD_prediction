@@ -9,8 +9,8 @@ class CKD_GUI:
         self.main_window.geometry("1500x700")
         self.main_window.title('Project Login')
         self.main_window.configure(bg='#333333')
-        self._secure_connection = None
-        self._url = "https://shubh2016shiv-ckd-prediction-app-jsw9gd.streamlitapp.com/"
+        self._secure_connection = None # private variable for initiating secure connection
+        self._url = "https://shubh2016shiv-ckd-prediction-app-jsw9gd.streamlitapp.com/" # private variable for opening URL once secure connection is created with MongoDB DB
 
         frame = tk.Frame(bg='#333333')
 
@@ -54,6 +54,10 @@ class CKD_GUI:
         tk.mainloop()
 
     def open_app(self):
+        """
+        Function to open application in web browser only after authentication is done
+        :return: None
+        """
         user_name = self.username_entry.get()
         password = self.password_entry.get()
         if (len(user_name) != 0) and (len(password) != 0):
