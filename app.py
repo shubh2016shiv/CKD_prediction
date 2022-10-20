@@ -64,6 +64,14 @@ if st.session_state["authentication_status"]:
     dataset_info_df = pd.read_excel('resources/blog_text_content/dataset_information.xlsx')
 
     st.dataframe(dataset_info_df.style.applymap(helper_functions.color_type, subset=['Type']), use_container_width=True)
+    
+    st.write("-" * 10)
+    st.header("MongoDB Database and Data Security")
+    st.write("**Below video shows the use of MongoDB for storing the 'Chronic Kidney Disease' dataset as collection inside the database**")
+    with st.expander("Expand to see the video"):
+        st.video("https://youtu.be/FALXfWdllfw")
+
+    st.write("-" * 10)
 
     st.header("Exploratory Data Analysis")
     dataframe_tab, descriptive_stat_tab, normality_test_tab, charts_tab, corr_tab = \
