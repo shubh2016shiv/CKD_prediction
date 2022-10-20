@@ -434,8 +434,6 @@ if st.session_state["authentication_status"]:
             if exists(bayesian_optimized_pipeline_path):
                 st.info("Evaluating the Bayesian Optimised Decision Tree Model..")
                 try:
-#                     with open(bayesian_optimized_pipeline_path, 'rb') as f:
-#                         bayesian_optimized_pipeline = pickle.load(f)
                     bayesian_optimized_pipeline = helper_functions.load_pickle_file(
                         bayesian_optimized_pipeline_path.replace('.pkl', ''))
                     trained_pipeline = bayesian_optimized_pipeline
@@ -450,8 +448,6 @@ if st.session_state["authentication_status"]:
             if exists(grid_search_optimized_pipeline_path):
                 st.info("Evaluating the Grid-Search Optimised Decision Tree Model..")
                 try:
-#                     with open(grid_search_optimized_pipeline_path, 'rb') as f:
-#                         grid_search_optimized_pipeline = pickle.load(f)
                     grid_search_optimized_pipeline = helper_functions.load_pickle_file(
                         grid_search_optimized_pipeline_path.replace('.pkl', ''))
                     trained_pipeline = grid_search_optimized_pipeline
@@ -466,8 +462,6 @@ if st.session_state["authentication_status"]:
             if exists(random_search_optimized_pipeline_path):
                 st.info("Evaluating the Random-Search Optimised Decision Tree Model..")
                 try:
-#                     with open(random_search_optimized_pipeline_path, 'rb') as f:
-#                         random_search_optimized_pipeline = pickle.load(f)
                     random_search_optimized_pipeline = helper_functions.load_pickle_file(
                         random_search_optimized_pipeline_path.replace('.pkl', ''))
                     trained_pipeline = random_search_optimized_pipeline
