@@ -10,7 +10,7 @@ class CKD_GUI:
         self.main_window.title('Project Login')
         self.main_window.configure(bg='#333333')
         self._secure_connection = None
-        self._url = "https://shubh2016shiv-ckd-prediction-app-dy7mlf.streamlitapp.com/"
+        self._url = "https://shubh2016shiv-ckd-prediction-app-jsw9gd.streamlitapp.com/"
 
         frame = tk.Frame(bg='#333333')
 
