@@ -16,24 +16,42 @@ class Evaluate:
         self.y_pred = None
 
     def get_classification_report(self):
+        """
+        Get classification report with heatmap
+        :return: yellowbrick.classifier.classification_report.ClassificationReport
+        """
         visualizer = ClassificationReport(self.trained_pipeline, classes=['notckd', 'ckd'], support=True)
         visualizer.fit(self.X_train, self.y_train)  # Fit the visualizer and the model
         visualizer.score(self.X_test, self.y_test)  # Evaluate the model on the test data
         return visualizer
 
     def get_ROCAUC_curve(self):
+        """
+        Get ROC AUC curve
+        :return: yellowbrick.classifier.rocauc.ROCAUC
+        """
         visualizer = ROCAUC(self.trained_pipeline, classes=['notckd', 'ckd'])
         visualizer.fit(self.X_train, self.y_train)  # Fit the training data to the visualizer
         visualizer.score(self.X_test, self.y_test)  # Evaluate the model on the test data
         return visualizer
 
     def get_Precision_Recall_curve(self):
+        """
+        Get Precision Recall curve
+        :return: yellowbrick.classifier.prcurve.PrecisionRecallCurve
+        """
+        
         visualizer = PrecisionRecallCurve(self.trained_pipeline)
         visualizer.fit(self.X_train, self.y_train)  # Fit the training data to the visualizer
         visualizer.score(self.X_test, self.y_test)  # Evaluate the model on the test data
         return visualizer
 
     def get_confusion_matrix(self):
+        """
+        Get confusion matrix
+        :return: yellowbrick.classifier.confusion_matrix.ConfusionMatrix'
+        """
+        
         visualizer = ConfusionMatrix(self.trained_pipeline, classes=['notckd', 'ckd'])
 
         visualizer.fit(self.X_train, self.y_train)  # Fit the training data to the visualizer
