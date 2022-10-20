@@ -33,6 +33,10 @@ class CorrelationAnalysis:
         self.helper_function = HelperFunctions()
 
     def corr_between_numerical_vars(self):
+        """
+        Compute the correlation among the numerical variables and show correlation as heatmap diagram using three correlation techniques - Pearson, Kendall and Spearman
+        :return: None
+        """
         st.write("**Correlation among all Numerical Variables**")
         corr_option = st.selectbox("Choose the Correlation Type", options=["Pearson", "Spearman", "Kendall"])
         if corr_option == "Pearson":
@@ -49,6 +53,10 @@ class CorrelationAnalysis:
             st.plotly_chart(fig, use_container_width=True)
 
     def corr_between_numerical_and_categorical(self):
+        """
+        Compute the correlation between selected numerical variable and categorical variable to find the potential relationship between them using statistical testing using point-biserial correlation testing technique
+        :return: None
+        """
         st.write("**Correlation Between Numerical and Categorical Variables**")
         numerical_var_options = st.multiselect("Select Numerical Variable", options=self.numerical_cols)
         categorical_var_options = st.multiselect("Select Categorical Variable", options=self.categorical_cols)
