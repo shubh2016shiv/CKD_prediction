@@ -584,7 +584,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                     st_yellowbrick(confusion_matrix_visualizer)
                 
                     st.subheader("Accuracy")
-                    st.write(f"###{model_score}")
+                    st.write(f"#### {model_score*100} %")
 
                     st.subheader("Classification Report")
                     classification_report_visualizer = evaluate_step.get_classification_report()
