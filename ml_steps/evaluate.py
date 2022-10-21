@@ -64,5 +64,5 @@ class Evaluate:
 
         visualizer.fit(self.X_train, self.y_train)  # Fit the training data to the visualizer
         visualizer.score(self.X_test, self.y_test)  # Evaluate the model on the test data
-        return visualizer
+        return visualizer, visualizer.score_
 
