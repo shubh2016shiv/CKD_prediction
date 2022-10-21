@@ -576,8 +576,8 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                                          train_label=train_pipeline_step.y_train,
                                          test_label=train_pipeline_step.y_test)
                 try:
-                    st.subheader("Accuracy")
-                    st.success(f"**{evaluate_step.get_accuracy()*100}%**")
+#                     st.subheader("Accuracy")
+#                     st.success(f"**{evaluate_step.get_accuracy()*100}%**")
                     
                     st.subheader("Confusion Matrix")
                     confusion_matrix_visualizer = evaluate_step.get_confusion_matrix()
