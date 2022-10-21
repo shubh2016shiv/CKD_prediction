@@ -18,8 +18,7 @@ def load_pickle_file(pickle_name):
 
 class FeatureSelector(BaseEstimator, TransformerMixin):
     """
-    Custom Feature selector to be used in Pipeline later
-    :return: NA
+    Custom Feature selector class to be used in Pipeline later
     """
     def __init__(self, columns):
         self.columns = columns
@@ -33,8 +32,7 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
 
 class NullValueImputater(BaseEstimator, TransformerMixin):
     """
-    Custom Null Value Imputater to be used in Pipeline later
-    :return: NA
+    Custom Null Value Imputater Class to be used in Pipeline later
     """
     def __init__(self, numerical_imputing_strategy, categorical_imputing_strategy):
         self.numerical_imputing_strategy = numerical_imputing_strategy
@@ -66,8 +64,7 @@ class NullValueImputater(BaseEstimator, TransformerMixin):
 
 class CustomStandardScaler(BaseEstimator, TransformerMixin):
     """
-    Custom Scaler to be used in Pipeline later
-    :return: NA
+    Custom Scaler Class to be used in Pipeline later
     """
     def __init__(self):
         self.numerical_variables = None
@@ -107,8 +104,7 @@ def handle_categorical_variables(X):
 
 class CustomCategoryEncoder(BaseEstimator, TransformerMixin):
     """
-    Custom category encoder to be used in Pipeline later
-    :return: NA
+    Custom category encoder class to be used in Pipeline later
     """
     def __init__(self):
         self.numerical_variables = None
