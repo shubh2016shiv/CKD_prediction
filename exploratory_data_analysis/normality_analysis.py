@@ -69,6 +69,7 @@ class NomalityAnalysis:
             'height': 700,
         })
         st.subheader("QQ Plot")
+        st.write("**It provides the visual test for checking normality. If the scatter plot is nearly along 45° line, then given data distribution follow normal curve, otherwise, it is skewed.**")
         st.plotly_chart(fig, use_container_width=True)
 
     def perform_shapiro_test(self, column):
@@ -124,6 +125,7 @@ class NomalityAnalysis:
         :return: None
         """
         st.subheader("Statistical Normality Test")
+        st.write("**It provides the statistical test for checking normality. If the given statistical test gives 'p-value' < 0.05, then, it provides sufficient statistical evidence that given data distribution does NOT follow Gaussian or Normal Distribution**")
         stat_shapiro, p_shapiro, msg_shapiro = self.perform_shapiro_test(column)
         stat_ks, p_ks, msg_ks = self.perform_KS_test(column)
         stat_normal, p_normal, msg_normal = self.perform_D_Agostino_K_squared_test(column)
