@@ -227,6 +227,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
     with data_loading_expander:
         code_column, result_column = st.columns(2)
         with code_column:
+            st.subheader("Code")
             github_gist("https://gist.github.com/shubh2016shiv/71b548149cc59ef98bf1d5c87453b422",width=800)
         with result_column:
             st.subheader("Data After Loading from MongoDB")
