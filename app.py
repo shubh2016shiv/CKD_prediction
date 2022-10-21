@@ -392,7 +392,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
             decision_tree_classifier = DecisionTreeClassifier(random_state=100, class_weight='balanced')
             ml_pipeline = MachineLearningPipeline(machine_learning_model=decision_tree_classifier) # Create Machine Learning pipeline using Decision Tree
             _ = ml_pipeline.create_custom_machine_learning_pipeline()
-            st.write("**Below Pipeline Diagram and its individual elements can be clicked to expand for more details **")
+            st.write("**Below Pipeline Diagram and its individual elements can be clicked to expand for more details.**")
             p = open("resources/pipeline_diagram/pipeline.html")
             components.html(p.read(), width=1000,
                             height=500,
