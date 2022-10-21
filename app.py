@@ -76,9 +76,9 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
     
     st.write("-" * 10)
     
-    ###################
-    # MongoDB Section #
-    ###################
+    ##############################################
+    # MongoDB Data Security Explaination Section #
+    ##############################################
     st.header("MongoDB Database and Data Security")
     st.write("**Below video shows the use of MongoDB for storing the 'Chronic Kidney Disease' dataset as collection inside the database**")
     with st.expander("Expand to see the video"):
@@ -208,7 +208,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
     # Machine Learning Life Cycle Section #
     #######################################
     st.header("Machine Learning Life Cycle Steps")
-    python_package_imports_expander = st.expander(label="Step: Import Python Packages")
+    data_loading_expander = st.expander(label="Step: Data Loading")
     training_test_split_expander = st.expander(label="Step: Split the Data into training and test set")
     feature_engineering_expander = st.expander(label="Step: Feature Engineering")
     feature_selection_expander = st.expander(label="Step: Feature Selection")
@@ -220,6 +220,18 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
                                                  expanded=True)
     evaluation_expander = st.expander(label="Step: Evaluate different Models")
     performing_prediction_expander = st.expander(label="Step: Perform Prediction on Unknown Data", expanded=True)
+    
+    #############################
+    # Data Loading from MongoDB #
+    #############################
+    with data_loading_expander:
+        code_column, result_column = st.columns(2)
+        with code_column:
+            github_gist("https://gist.github.com/shubh2016shiv/71b548149cc59ef98bf1d5c87453b422",width=800)
+        with result_column:
+            st.subheader("Data After Loading from MongoDB")
+            import_data = ImportData(mongoDB_connection=helper_functions.mongodb)
+            st.dataframe(import_data.get_data_from_mongoDB())
 
     ##################
     # Data Splitting #
