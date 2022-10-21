@@ -638,7 +638,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
 
         if len(sample['selected_rows']) == 0:
             st.info(
-                "⚠️Select any sample by marking the check box in front of row. Same values will be automatically filled for respective field from the selected row and then click the prediction button. The values can also be manually edited later.")
+                "⚠️Select any of the above given sample by marking the check box in front of row. Same values will be automatically filled for respective measurement from the selected row and then click the prediction button. The values can also be manually edited later.")
 
         else:
             with numeric_input_column:
