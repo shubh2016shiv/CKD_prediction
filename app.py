@@ -567,7 +567,7 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
 
         with code_column:
             st.subheader("Code")
-            github_gist("https://gist.github.com/shubh2016shiv/915350f06fd3d61b0d867d77cae271ed", width=850)
+            github_gist("https://gist.github.com/shubh2016shiv/915350f06fd3d61b0d867d77cae271ed", width=850, height=1500)
         with result_column:
             if trained_pipeline is not None:
                 evaluate_step = Evaluate(trained_pipeline=trained_pipeline,
