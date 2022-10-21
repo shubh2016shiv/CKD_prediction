@@ -26,6 +26,10 @@ class Evaluate:
         return visualizer
     
     def get_accuracy(self):
+        """
+        calculates the accuracy of the model
+        :return: accuracy in float
+        """
         y_pred = self.trained_pipeline.predict(self.X_test)
         return accuracy_score(self.y_test,y_pred)
 
