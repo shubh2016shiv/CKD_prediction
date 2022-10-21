@@ -5,13 +5,15 @@ import numpy as np
 class ImportData:
     def __init__(self, mongoDB_connection):
         self.mongoDB_connection = mongoDB_connection
-        self.data = self.mongoDB_connection.read_data_from_mongodb()
+        self.data = None
 
     def get_data_from_mongoDB(self):
         """
         retrieve data from mongodb into pandas dataframe
         :return: pandas dataframe
         """
+        self.data = self.mongoDB_connection.read_data_from_mongodb()  # Read data from MongoDB after successful connection
+        
         config = ConfigParser()  # For reading column names from config files, so that column names can be added after fetching data from mongoDB
         config.read('config.ini')  # read column names from the configuration file
         if self.data is not None:
