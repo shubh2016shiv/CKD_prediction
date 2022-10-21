@@ -580,8 +580,11 @@ if st.session_state["authentication_status"]: # If the app authentication is suc
 #                     st.success(f"**{evaluate_step.get_accuracy()*100}%**")
                     
                     st.subheader("Confusion Matrix")
-                    confusion_matrix_visualizer = evaluate_step.get_confusion_matrix()
+                    confusion_matrix_visualizer, model_score = evaluate_step.get_confusion_matrix()
                     st_yellowbrick(confusion_matrix_visualizer)
+                
+                    st.subheader("Accuracy")
+                    st.write(f"###{model_score}")
 
                     st.subheader("Classification Report")
                     classification_report_visualizer = evaluate_step.get_classification_report()
