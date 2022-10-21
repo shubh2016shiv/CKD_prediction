@@ -24,6 +24,10 @@ class Evaluate:
         visualizer.fit(self.X_train, self.y_train)  # Fit the visualizer and the model
         visualizer.score(self.X_test, self.y_test)  # Evaluate the model on the test data
         return visualizer
+    
+    def get_accuracy(self):
+        y_pred = self.trained_pipeline.predict(self.X_test)
+        return accuracy_score(self.y_test,y_pred)
 
     def get_ROCAUC_curve(self):
         """
