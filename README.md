@@ -29,11 +29,17 @@ Enter below given credentials for accessing the web-app demonstration
 
 **Click on Below icon for opening web application demonstration**
 
+The demonstration uses machine learning techniques to analyze data related to chronic kidney disease (CKD) using the Streamlit framework. It includes interactive visualizations to show the results of each step in the machine learning process, including the code used. It also includes interactive dashboards for Exploratory Data Analysis and statistical data analysis. Additionally, it compares the time performance before and after feature selection, and it demonstrates the optimization of a decision tree model using different optimization techniques such as Bayesian Optimization, Grid Search Optimization, and Random Search Optimization. Lastly, it shows how the model can be used to make predictions on new patient data.
+
 [![streamlit](https://th.bing.com/th/id/OIP.hiunGrftVRVZAE3IJXUMowHaEb?pid=ImgDet&rs=1)](https://shubh2016shiv-ckd-prediction-app-jsw9gd.streamlit.app/)
+
+## Bayesian Optimized Decision Tree Pipeline
+![image](https://user-images.githubusercontent.com/21255010/213820023-586eb641-b047-433e-88f8-b74d80c6499d.png)
 
 ## Decision Tree for early detecting of Chronic Kidney Disease
 **Bayesian Optimized Decision Tree for detecting Chronic Kidney Disease**
 
 ![image](https://user-images.githubusercontent.com/21255010/213817000-12942871-648e-4733-a17b-a3cb6b94f085.png)
 
-
+## CKD Prediction Demonstration using Bayesian Optimised Decision Tree pipeline
+![](https://github.com/shubh2016shiv/CKD_prediction/blob/main/resources/blog_text_content/ckd%20prediction.gif)
