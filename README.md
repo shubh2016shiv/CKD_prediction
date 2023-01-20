@@ -21,9 +21,19 @@ The project is implemented using Python and relevant libraries such as scikit-le
 [Article on WordPress with End to End Machine Learning Steps and Explaination](https://wordpress.com/home/shubh2016shivmlportfolio.wordpress.com)
 
 ## Web Application Demostration
+Enter below given credentials for accessing the web-app demonstration
+
+*Username*: admin
+
+*Password*: abc123
+
 **Click on Below icon for opening web application demonstration**
+
 [![streamlit](https://th.bing.com/th/id/OIP.hiunGrftVRVZAE3IJXUMowHaEb?pid=ImgDet&rs=1)](https://shubh2016shiv-ckd-prediction-app-jsw9gd.streamlit.app/)
 
 ## Decision Tree for early detecting of Chronic Kidney Disease
 **Bayesian Optimized Decision Tree for detecting Chronic Kidney Disease**
+
 ![image](https://user-images.githubusercontent.com/21255010/213817000-12942871-648e-4733-a17b-a3cb6b94f085.png)
+
+
